@@ -1,0 +1,17 @@
+<package>
+  <description brief="smart_car">
+
+     smart_car
+
+  </description>
+  <author>uav</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/smart_car</url>
+  <depend package="std_msgs"/>
+  <depend package="rospy"/>
+  <depend package="roscpp"/>
+
+</package>
+
+

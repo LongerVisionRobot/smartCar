@@ -1,0 +1,13 @@
+<launch>
+
+    <include file="$(find smart_car)/launch/velocity_controller.launch">
+
+        <arg
+            name="height"
+            value="0.0285"
+        />
+
+    </include>
+    <include file="$(find smart_car)/launch/stand.launch"/>
+
+</launch>

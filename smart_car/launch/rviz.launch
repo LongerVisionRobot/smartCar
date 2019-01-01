@@ -1,0 +1,45 @@
+<launch>
+
+	<include file="$(find smart_car)/launch/parameter.launch"/>
+	<node
+		name="joint_state_publisher"
+		pkg="joint_state_publisher"
+		type="joint_state_publisher"
+		ns="smart_car"
+	>
+
+		<param
+			name="use_gui"
+			type="Boolean"
+			value="true"
+		/>
+		<remap
+			from="/joint_states"
+			to="/smart_car/joint_states"
+		/>
+
+	</node>
+	<node
+		name="robot_state_publisher"
+		pkg="robot_state_publisher"
+		type="state_publisher"
+		ns="smart_car"
+	>
+
+		<remap
+			from="/joint_states"
+			to="/smart_car/joint_states"
+		/>
+
+	</node>
+	<node
+		name="rviz"
+		pkg="rviz"
+		type="rviz"
+		args="-d $(find smart_car)/description.rviz"
+		required="true"
+		ns="smart_car"
+	/>
+	<!-- -f origin_link -->
+
+</launch>

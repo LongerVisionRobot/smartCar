@@ -1,0 +1,76 @@
+<launch>
+
+	<rosparam
+		file="$(find smart_car)/config/joint_velocity.yaml"
+		command="load"
+	/>
+	<arg
+		name="paused"
+		default="true"
+	/>
+	<arg
+		name="height"
+		default="0"
+	/>
+	<include file="$(find smart_car)/launch/gazebo_controller.launch">
+
+		<arg
+			name="paused"
+			value="$(arg paused)"
+		/>
+		<arg
+			name="height"
+			value="$(arg height)"
+		/>
+
+	</include>
+	<node
+		name="controller_spawner"
+		pkg="controller_manager"
+		type="spawner"
+		respawn="false"
+		output="screen"
+		args="joint_state_controller left_joint_velocity_controller back_joint_velocity_controller right_joint_velocity_controller"
+		ns="/smart_car"
+	/>
+	<node
+		name="odometry"
+		pkg="smart_car"
+		type="smart_car_odometry"
+		ns="smart_car"
+		output="screen"
+		args="pose_cheat"
+	></node><!-- args="pose_cheat" -->
+	<node
+		name="kinematics"
+		pkg="smart_car"
+		type="smart_car_kinematics"
+		ns="smart_car"
+		output="screen"
+	></node>
+	<node
+		name="encoder"
+		pkg="smart_car"
+		type="smart_car_sensor_encoder"
+		ns="smart_car/sensor"
+		output="screen"
+		launch-prefix="xterm -e"
+	></node>
+	<node
+		name="lidar"
+		pkg="smart_car"
+		type="smart_car_sensor_lidar"
+		ns="smart_car/sensor"
+		output="screen"
+		launch-prefix="xterm -e"
+	></node>
+	<node
+		name="main"
+		pkg="smart_car"
+		type="smart_car_main"
+		ns="smart_car"
+		output="screen"
+		launch-prefix="xterm -e"
+	></node>
+
+</launch>
